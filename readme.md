@@ -4,6 +4,9 @@ Blog API Challenge - TCIT (web solutions)
 ## Initialice and start project
 
 ### Initialization
+
+First configure the .env file. Copy ```.env.example``` and paste with name the ```.env```, then set api port and PostgreSQL connectiondata.
+
 ```cmd
 npm install
 npm run migrate
