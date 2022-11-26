@@ -2,7 +2,7 @@ import * as dotenv from 'dotenv'
 import express from 'express'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import apiRoute from './http/routes/api.route.js'
+import apiRoute from './routes/api.route.js'
 
 dotenv.config()
 

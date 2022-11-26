@@ -7,7 +7,7 @@ const listPosts = async (request, response) => {
     })
     .catch((error) => {
       console.error(error)
-      response.json({ error })
+      response.json({ error: { miscellaneous: error } })
     })
 }
 
@@ -18,7 +18,7 @@ const createPost = (request, response) => {
     })
     .catch((error) => {
       console.error(error)
-      response.json({ error })
+      response.json({ error: { miscellaneous: error } })
     })
 }
 
@@ -30,7 +30,7 @@ const deletePost = (request, response) => {
     })
     .catch((error) => {
       console.error(error)
-      response.json({ error })
+      response.json({ error: { miscellaneous: error } })
     })
 }
 
