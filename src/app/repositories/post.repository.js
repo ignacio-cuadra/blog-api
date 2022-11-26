@@ -4,9 +4,13 @@ import Post from '../models/post.model.js'
 const postRepository = () => {
   const getPosts = async () => {
     let posts = []
-    await postgreRepository.query('SELECT * FROM posts')
+    await postgreRepository.query('SELECT * FROM posts ORDER BY created_at DESC')
       .then((result) => {
-        if (result.rows.length > 0) posts = result.rows.map(row => (new Post(row)))
+        if (result.rows.length === 0) return
+        posts = result.rows.map(row => {
+          const { id, name, description, created_at: createdAt } = row
+          return new Post({ id, name, description, createdAt })
+        })
       })
       .catch((error) => {
         throw error
@@ -14,10 +18,12 @@ const postRepository = () => {
     return posts
   }
   const getPostById = async (id) => {
-    let post
+    let post = null
     await postgreRepository.query('SELECT * FROM posts WHERE id = $1', [id])
       .then((result) => {
-        post = (result.rows.length > 0) ? new Post(result.rows[0]) : null
+        if (result.rows.length === 0) return
+        const { id, name, description, created_at: createdAt } = result.rows[0]
+        post = new Post({ id, name, description, createdAt })
       })
       .catch((error) => {
         throw error
@@ -28,7 +34,9 @@ const postRepository = () => {
     const { id, name, description } = post
     await postgreRepository.query('INSERT INTO public.posts(id, name, description) VALUES ($1, $2, $3) RETURNING *', [id, name, description])
       .then((result) => {
-        post = (result.rows.length > 0) ? new Post(result.rows[0]) : null
+        if (result.rows.length === 0) return
+        const { id, name, description, created_at: createdAt } = result.rows[0]
+        post = new Post({ id, name, description, createdAt })
       })
       .catch((error) => {
         throw error
@@ -46,7 +54,11 @@ const postRepository = () => {
     }
     await postgreRepository.query(`INSERT INTO public.posts(id, name, description) VALUES ${stringValues.join(',')} RETURNING *`, values)
       .then((result) => {
-        if (result.rows.length > 0) posts = result.rows.map(row => (new Post(row)))
+        if (result.rows.length === 0) return
+        posts = result.rows.map(row => {
+          const { id, name, description, created_at: createdAt } = row
+          return new Post({ id, name, description, createdAt })
+        })
       })
       .catch((error) => {
         throw error
@@ -54,10 +66,12 @@ const postRepository = () => {
     return posts
   }
   const deletePostById = async (id) => {
-    let post
+    let post = null
     await postgreRepository.query('DELETE FROM posts WHERE id = $1 RETURNING *', [id])
       .then((result) => {
-        post = (result.rows.length > 0) ? new Post(result.rows[0]) : null
+        if (result.rows.length === 0) return
+        const { id, name, description, created_at: createdAt } = result.rows[0]
+        post = new Post({ id, name, description, createdAt })
       })
       .catch((error) => {
         throw error

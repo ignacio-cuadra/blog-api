@@ -19,25 +19,32 @@ describe('Post CRUD', () => {
   })
   it('create a new post', async () => {
     const post = createPost()
-    const postData = JSON.parse(JSON.stringify(post))
+    const postData = { id: post.id, name: post.name, description: post.description }
     const res = await chai.request(app)
       .post('/api/v1/posts')
       .send(postData)
     expect(res).to.have.status(200)
     expect(res).to.be.json
-    expect(res.body).to.deep.equal({ post: postData })
+    expect(res.body).to.have.property('post')
+    const resultPost = { ...res.body.post }
+    delete resultPost.createdAt
+    expect(resultPost).to.deep.equal(postData)
     const newPost = await getPostById(post.id)
-    expect(newPost).to.deep.equal(post)
+    delete newPost.createdAt
+    expect(newPost).to.deep.equal(postData)
     deletePostById(post.id) // TODO: Remove this patch and create transactional queries that deleted after testing
   })
   it('delete a posts', async () => {
     const post = createPost()
     await storePost(post)
     const postId = post.id
-    const postData = JSON.parse(JSON.stringify(post))
+    const postData = { id: post.id, name: post.name, description: post.description }
     const res = await chai.request(app).delete(`/api/v1/posts/${postId}`)
     expect(res).to.have.status(200)
-    expect(res.body).to.deep.equal({ post: postData })
+    expect(res.body).to.have.property('post')
+    const resultPost = res.body.post
+    delete resultPost.createdAt
+    expect(resultPost).to.deep.equal(postData)
     const deletedPost = await getPostById(postId)
     expect(deletedPost).to.be.null
   })
