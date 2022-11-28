@@ -1,7 +1,7 @@
 # Blog API
 Blog API Challenge - TCIT (web solutions)
 
-This repository is the Front End of Blog Challenge, if you wanna see the back end check this url [https://github.com/ignacio-cuadra/blog-app](https://github.com/ignacio-cuadra/blog-app)
+This repository is the Back End of Blog Challenge, if you wanna see the Front End check this url [https://github.com/ignacio-cuadra/blog-app](https://github.com/ignacio-cuadra/blog-app)
 
 ## This project has
 ✔️ Infrastructure and Domain separated*
