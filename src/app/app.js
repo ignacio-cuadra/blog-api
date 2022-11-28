@@ -3,6 +3,7 @@ import express from 'express'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import apiRoute from './routes/api.route.js'
+import cors from 'cors'
 
 dotenv.config()
 
@@ -11,6 +12,7 @@ const __dirname = path.dirname(__filename)
 const __views = path.join(__dirname, '../public/views/')
 
 const app = express()
+app.use(cors())
 app.use(express.json())
 app.get('/', (req, res) => {
   res.sendFile(path.join(__views, 'index.html'))
