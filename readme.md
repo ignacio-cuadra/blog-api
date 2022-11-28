@@ -1,7 +1,7 @@
 # Blog API
 Blog API Challenge - TCIT (web solutions)
 
-This repository is the Back End of Blog Challenge, if you wanna see the Front End check this url [https://github.com/ignacio-cuadra/blog-app](https://github.com/ignacio-cuadra/blog-app)
+This repository is the Back End of a blog challenge, if you wanna see the Front End visit this url [https://github.com/ignacio-cuadra/blog-app](https://github.com/ignacio-cuadra/blog-app)
 
 ## This project has
 ✔️ Infrastructure and Domain separated*
@@ -18,7 +18,7 @@ This repository is the Back End of Blog Challenge, if you wanna see the Front En
 
 ### Initialization
 
-First configure the .env file. Copy ```.env.example``` and paste with name the ```.env```, then set api port and PostgreSQL connectiondata.
+Copy ```.env.example``` and paste with the name ```.env```, then set api port and PostgreSQL connection data.
 
 ```cmd
 npm install
